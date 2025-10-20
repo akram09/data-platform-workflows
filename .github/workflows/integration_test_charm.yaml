@@ -387,6 +387,7 @@ jobs:
           if-no-files-found: error
       - timeout-minutes: 1
         run: snap list
+      # TODO: Reupdate this once there is a fix for jammy/snapd problem making machines stuck in waiting state 
       - name: Pre-download lxd image
         timeout-minutes: 60
         if: ${{ inputs.cloud == 'lxd' }}
@@ -404,7 +405,7 @@ jobs:
             then
               sudo --user "$USER" --preserve-env --preserve-env=PATH -- env -- lxc image copy ubuntu:8de71f421b30 local: --alias 'juju/focal/amd64'
             else
-              sudo --user "$USER" --preserve-env --preserve-env=PATH -- env -- lxc image copy ubuntu:82b997ec581b local: --alias 'juju/ubuntu@22.04/amd64'
+              sudo --user "$USER" --preserve-env --preserve-env=PATH -- env -- lxc image copy ubuntu:568f69ff1166 local: --alias 'juju/ubuntu@22.04/amd64'
             fi
           else
             sudo --user "$USER" --preserve-env --preserve-env=PATH -- env -- lxc image copy ubuntu:60d56aa663ed local: --alias 'juju/ubuntu@22.04/arm64'
