@@ -465,15 +465,16 @@ jobs:
 
           with open(os.environ["GITHUB_OUTPUT"], "a") as file:
               file.write(output)
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Run integration tests
         timeout-minutes: 120
         id: tests
         run: sudo --user "$USER" --preserve-env --preserve-env=PATH -- env -- tox run -e integration -- '${{ matrix.groups.path_to_test_file }}' --group='${{ matrix.groups.group_id }}' -m '${{ steps.select-test-stability.outputs.mark_expression }}' --model test ${{ steps.allure-option.outputs.option }}
         env:
           SECRETS_FROM_GITHUB: ${{ secrets.integration-test }}
-
-      - name: Setup tmate session
-        uses: canonical/action-tmate@main
 
       - name: (beta) Upload Allure results
         timeout-minutes: 3
