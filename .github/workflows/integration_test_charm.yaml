@@ -217,11 +217,6 @@ jobs:
           rm -r /opt/hostedtoolcache/
           printf '\nDisk usage after cleanup\n'
           df --human-readable
-      - name: (Github hosted) Mount /mnt to have more storage 
-        if: ${{ !matrix.groups.is_hosted }}
-        run: |
-          sudo mkdir -p /var/snap/lxd/common/lxd/storage-pools
-          sudo mount --bind /mnt /var/snap/lxd/common/lxd/storage-pools
       - name: (IS hosted) Disk usage
         timeout-minutes: 1
         if: ${{ matrix.groups.is_hosted }}
